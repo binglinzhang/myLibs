@@ -1,0 +1,23 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style></style>
+</head>
+
+<body>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script>
+		var projection = d3.geo.mercator()
+			.center([107, 31]) //设定地图的中心位置，[107,31] 指的是经度和纬度
+			.scale(850) //设定放大的比例
+			.translate([width / 2, height / 2]); //设定平移
+
+		var path = d3.geo.path() //地理路径生成器
+			.projection(projection);
+
+	</script>
+</body>
+
+</html>

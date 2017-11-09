@@ -1,0 +1,69 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #images-container {
+            overflow: hidden;
+            border: 1px dashed red;
+            width: 500px;
+        }
+
+        #in-images-container {
+            float: left;
+            width: 800%;
+        }
+
+        #in-images-container>#images,#in-images-container>#images-copy {
+            float: left;
+        }
+
+        #in-images-container>#images img,#in-images-container>#images-copy img {
+            margin: 0 100px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="images-container">
+        <div id="in-images-container">
+            <div id="images">
+                <a href="#"><img src="./images/gundong.jpg"/></a>
+                <a href="#"><img src="./images/gundong.jpg"/></a>
+                <a href="#"><img src="./images/gundong.jpg"/></a>
+                <a href="#"><img src="./images/gundong.jpg"/></a>
+            </div>
+            <div id="images-copy"></div>
+        </div>
+    </div>
+
+    <script>
+        let
+            imagesContainer = document.querySelector("#images-container"),
+            images = document.querySelector("#images"),
+            imagesC = document.querySelector("#images-copy"),
+            speed = 10
+        imagesC.innerHTML = images.innerHTML
+
+        function move() {
+            if (imagesContainer.scrollLeft <= 0) {
+                imagesContainer.scrollLeft += imagesC.offsetWidth
+            } else {
+                imagesContainer.scrollLeft--
+            }
+        }
+
+        let timer = setInterval(move, speed)
+        imagesContainer.addEventListener('mouseover', () => {
+            clearInterval(timer)
+        })
+        imagesContainer.addEventListener('mouseout', () => {
+            timer = setInterval(move, speed)
+        })
+    </script>
+
+</body>
+
+</html>

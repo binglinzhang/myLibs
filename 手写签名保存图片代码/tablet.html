@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>tablet</title>
+</head>
+<body>
+    <div class="tablet">
+        <canvas id="canvas" width="50%" height="400" style="border:1px solid black">Canvas画板</canvas><br><br>
+        <button class="clear">清除</button>
+        <button class="submit">提交</button>
+    </div>
+    <div class="imgContainer"></div>
+    <script>
+        let canvas = document.querySelector('#canvas'), //获取canvas元素
+            context = canvas.getContext("2d"), //获取2D图像API接口
+            paint = false, //鼠标左键是否在画板区域按下
+            x,
+            y;
+        context.strokeStyle = "#000000"; //设置画笔颜色
+        context.lineJoin = "round"; //设置画笔轨迹基于圆点拼接
+        context.lineWidth = 6; //设置画笔粗细
+
+        //监控画板上的鼠标左键按下
+        canvas.addEventListener('mousedown', e => {
+            paint = true;
+            x = e.offsetX;
+            y = e.offsetY;
+            context.beginPath();
+            context.moveTo(x, y);
+        });
+        //移动鼠标
+        canvas.addEventListener('mousemove', e => {
+            if (paint) {
+                var nx = e.offsetX,
+                    ny = e.offsetY;
+                context.lineTo(x, y);
+                context.stroke();
+                x = nx;
+                y = ny;
+            }
+        });
+        //释放鼠标左键
+        canvas.addEventListener('mouseup', e => {
+            paint = false;
+        });
+        //鼠标离开画板
+        canvas.addEventListener('mouseleave', e => {
+            paint = false;
+        });
+        //提交数据处理
+        document.querySelector('.submit').addEventListener('click', () => {
+            let Base64Data = canvas.toDataURL("image/png"); //把canvas画板上的内容转成指定格式图片数据，并进行Base64编码
+            console.log(Base64Data);
+            alert('保存成功！')
+            document.querySelector('.tablet').style.display = 'none';
+            let img = document.createElement('img');
+            img.src = Base64Data;
+            document.querySelector('.imgContainer').appendChild(img);
+        });
+        //清除画布
+        document.querySelector('.clear').addEventListener('click', () => {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    </script>
+</body>
+</html>

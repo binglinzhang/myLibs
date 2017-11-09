@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <!-- <input type="text" id='inputText'>
+        <h3 id='showText'></h3>
+
+        <script type="text/javascript">
+            let obj = {}
+            Object.defineProperty(obj, 'prop', {
+                set: function(newValue) {
+                    document.querySelector('#inputText').value = newValue
+                    document.querySelector('#showText').innerHTML = newValue
+                }
+            })
+            document.querySelector('#inputText').addEventListener('keyup',function(e) {
+                obj.prop = e.target.value               //e.target获取目标标签
+            })
+        </script> -->
+
+    <div id="app"><input type="text" id="a"><span id="b"></span></div>
+
+    <script type="text/javascript">
+        let dom = nodeToFragment(document.querySelector('#app'))
+
+        function nodeToFragment(node) {
+            var flag = document.createDocumentFragment()
+            var child
+            while (child = node.firstChild) {
+                flag.appendChild(child) // 将子节点劫持到文档片段中
+            }
+            return flag
+        }
+
+        document.querySelector('#app').appendChild(dom)
+    </script>
+</body>
+
+</html>
